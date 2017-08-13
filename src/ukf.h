@@ -180,13 +180,13 @@ public:
      * Init Initializes Unscented Kalman filter
      */
     void Init(const MeasurementPackage &measurement_pack);
-    void Update(const MeasurementPackage &measurement_pack);
-    void GenerateSigmaPoints(MatrixXd* Xsig_out);
+
+ //   void GenerateSigmaPoints(MatrixXd* Xsig_out);
     void AugmentedSigmaPoints(MatrixXd* Xsig_out);
-    void SigmaPointPrediction(MatrixXd* Xsig_out);
-    void PredictMeanAndCovariance(VectorXd* x_pred, MatrixXd* P_pred);
-    void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out);
-    void UpdateState(VectorXd* x_out, MatrixXd* P_out);
+    void SigmaPointPrediction(MatrixXd &Xsig_aug, double delta_t);
+    void PredictMeanAndCovariance();
+    void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd* Zsig_);
+    void UpdateState(VectorXd z_pred, MatrixXd S, MatrixXd Zsig, MeasurementPackage &meas_package);
 
 };
 
