@@ -1,46 +1,3 @@
-//#ifndef UKF_H
-//#define UKF_H
-//#include "Eigen/Dense"
-//#include <vector>
-//
-//using Eigen::MatrixXd;
-//using Eigen::VectorXd;
-//
-//class UKF {
-//public:
-//
-//
-//    /**
-//       * Constructor
-//       */
-//    UKF();
-//
-//    /**
-//     * Destructor
-//     */
-//    virtual ~UKF();
-//
-//    /**
-//     * Init Initializes Unscented Kalman filter
-//     */
-//    void Init();
-//
-//    /**
-//     * Student assignment functions
-//     */
-//    void GenerateSigmaPoints(MatrixXd* Xsig_out);
-//    void AugmentedSigmaPoints(MatrixXd* Xsig_out);
-//    void SigmaPointPrediction(MatrixXd* Xsig_out);
-//    void PredictMeanAndCovariance(VectorXd* x_pred, MatrixXd* P_pred);
-//    void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out);
-//    void UpdateState(VectorXd* x_out, MatrixXd* P_out);
-//};
-//
-//#endif /* UKF_H */
-
-
-
-
 #ifndef UKF_H
 #define UKF_H
 
@@ -110,78 +67,51 @@ public:
   ///* Sigma point spreading parameter
   double lambda_;
 
-
-  /*
-
-*/
 /**
    * Constructor
-   *//*
-*/
+   */
 
   UKF();
 
-  /*
-
-*/
 /**
    * Destructor
-   *//*
-*/
+   */
 
   virtual ~UKF();
 
-  /*
-
-*/
 /**
    * ProcessMeasurement
    * @param meas_package The latest measurement data of either radar or laser
-   *//*
-*/
+   */
 
   void ProcessMeasurement(MeasurementPackage meas_package);
 
-  /*
-
-*/
 /**
    * Prediction Predicts sigma points, the state, and the state covariance
    * matrix
    * @param delta_t Time between k and k+1 in s
-   *//*
-*/
+   */
 
   void Prediction(double delta_t);
 
-  /*
-
-*/
 /**
    * Updates the state and the state covariance matrix using a laser measurement
    * @param meas_package The measurement at k+1
-   *//*
-*/
+   */
 
   void UpdateLidar(MeasurementPackage meas_package);
 
-  /*
-
-*/
 /**
    * Updates the state and the state covariance matrix using a radar measurement
    * @param meas_package The measurement at k+1
-   *//*
-*/
+   */
 
   void UpdateRadar(MeasurementPackage meas_package);
 
-        /**
-     * Init Initializes Unscented Kalman filter
-     */
+/**
+   * Init Initializes Unscented Kalman filter
+   */
     void Init(const MeasurementPackage &measurement_pack);
-
- //   void GenerateSigmaPoints(MatrixXd* Xsig_out);
     void AugmentedSigmaPoints(MatrixXd* Xsig_out);
     void SigmaPointPrediction(MatrixXd &Xsig_aug, double delta_t);
     void PredictMeanAndCovariance();
@@ -190,8 +120,5 @@ public:
 
 };
 
-#endif /*
-
-*/
+#endif
 /* UKF_H */
-
