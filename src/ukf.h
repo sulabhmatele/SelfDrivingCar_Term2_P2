@@ -117,7 +117,7 @@ public:
     void PredictMeanAndCovariance();
     void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd* Zsig_);
     void UpdateState(VectorXd z_pred, MatrixXd S, MatrixXd Zsig, MeasurementPackage &meas_package);
-
+    int CalculateNIS(VectorXd &z_diff, MatrixXd &S);
 };
 
 #endif
