@@ -337,8 +337,7 @@ void UKF::UpdateLidar(MeasurementPackage meas_package)
 
     P_ = (I - K * H_) * P_;
 
-    int nis = CalculateNIS(y, S);
-    cout << "NIS_lidar = " << nis << endl;
+    ProcessNIS(y, S, meas_package);
 }
 
 /****************************************************************************/
@@ -479,15 +478,29 @@ void UKF::UpdateState(VectorXd z_pred, MatrixXd S, MatrixXd Zsig, MeasurementPac
 
     P_ = P_ - K * S * K.transpose();
 
-    int nis = CalculateNIS(z_diff, S);
-    cout << "NIS_radar = " << nis << endl;
+    ProcessNIS(z_diff, S, meas_package);
 }
 
 /****************************************************************************/
 //                        Calculate NIS
 /****************************************************************************/
-int UKF::CalculateNIS(VectorXd &z_diff, MatrixXd &S)
+void UKF::ProcessNIS(VectorXd &z_diff, MatrixXd &S, MeasurementPackage meas_package)
 {
-    return (z_diff.transpose() * S.inverse() * z_diff);
+    int ret = (z_diff.transpose() * S.inverse() * z_diff);
+
+    if(meas_package.sensor_type_ == MeasurementPackage::RADAR)
+    {
+        cout << "NIS_radar = " << ret << endl;
+        ofstream out("NisRadar.txt", ios::app);
+        out << ret << endl;
+        out.close();
+    }
+    else
+    {
+        cout << "NIS_lidar = " << ret << endl;
+        ofstream out("NisLidar.txt", ios::app);
+        out << ret << endl;
+        out.close();
+    }
 }
 
