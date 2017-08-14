@@ -337,7 +337,8 @@ void UKF::UpdateLidar(MeasurementPackage meas_package)
 
     P_ = (I - K * H_) * P_;
 
-    cout << "NIS_lidar = " << y.transpose()  * S.inverse() * y << endl;
+    int nis = CalculateNIS(y, S);
+    cout << "NIS_lidar = " << nis << endl;
 }
 
 /****************************************************************************/
@@ -477,4 +478,16 @@ void UKF::UpdateState(VectorXd z_pred, MatrixXd S, MatrixXd Zsig, MeasurementPac
     x_ = x_ + K * z_diff;
 
     P_ = P_ - K * S * K.transpose();
+
+    int nis = CalculateNIS(z_diff, S);
+    cout << "NIS_radar = " << nis << endl;
 }
+
+/****************************************************************************/
+//                        Calculate NIS
+/****************************************************************************/
+int UKF::CalculateNIS(VectorXd &z_diff, MatrixXd &S)
+{
+    return (z_diff.transpose() * S.inverse() * z_diff);
+}
+
