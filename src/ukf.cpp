@@ -102,11 +102,11 @@ void UKF::Init(const MeasurementPackage &measurement_pack)
         /* Converting polar to cartesian format */
         /* There is not sufficient data to use ro_dot */
 
-        x_ << ro * sin(phi), ro * cos(phi), 2, 1, 1.5;
+        x_ << ro * sin(phi), ro * cos(phi), 2, 2, 2;
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER)
     {
-        x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 2, 1, 1.5;
+        x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 2, 2, 2;
     }
     // done initializing, no need to predict or update
     is_initialized_ = true;
